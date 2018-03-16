@@ -33,16 +33,28 @@ class BearSpec extends Specification {
 
     def "Bear should not be alive if it has eaten within more than 10 days"() {
         given:
-        def clock = Mock(BearClock)
-        clock.currentTime >> DateTime.now().plusDays(11)
+        def clock = new TestClock()
         def bear = new BlackBear(3, clock)
-        bear.eat()
+        bear.eat() //lastMealDate = 16.03.2018
 
         when:
-        def result = bear.isAlive()
+        def result = bear.isAlive() //clock.getCurrentTime = 27.03.2018
 
         then:
         !result
+    }
+
+    class TestClock extends BearClock {
+        int counter = 0;
+
+        @Override
+        DateTime getCurrentTime() {
+            counter++
+            if (counter > 1)
+                return DateTime.now().plusDays(11)
+            else
+                return DateTime.now()
+        }
     }
 
 }
