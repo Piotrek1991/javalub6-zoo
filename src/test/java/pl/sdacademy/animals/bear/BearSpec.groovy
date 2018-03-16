@@ -1,5 +1,7 @@
 package pl.sdacademy.animals.bear
 
+import org.joda.time.DateTime
+import pl.sdacademy.animals.time.BearClock
 import spock.lang.Specification
 
 class BearSpec extends Specification {
@@ -30,47 +32,17 @@ class BearSpec extends Specification {
     }
 
     def "Bear should not be alive if it has eaten within more than 10 days"() {
-
         given:
-        def bear = new BlackBear(3);
+        def clock = Mock(BearClock)
+        clock.currentTime >> DateTime.now().plusDays(11)
+        def bear = new BlackBear(3, clock)
         bear.eat()
 
-
         when:
-        def result
-
-
-    }
-
-
-    //Po zjedzeniu posiłku o danej masie, jego waga wzrasta o tę samą wartość.
-    def "After eat meal with its weight, bear's weight grown about this value"()
-    {
-        given:
-        int mealWeight = 1
-        int weight = 3
-        Bear bear = new BlackBear(weight)
-
-        when:
-        int result = weight + bear.eatMeal(mealWeight)
+        def result = bear.isAlive()
 
         then:
-        result == 4
+        !result
     }
-//Po wypiciu wody (void drink(double waterWeight)) o danej masie, jego waga wzrasta o 3/4 tej wartości
-    def " After drink water with its weight, bear's weight increase about 75% this value"()
-    {
-        given:
-        int waterWeight = 10
-        int weight = 40
-        Bear bear = new BlackBear(10)
-
-        when:
-        double result = weight + bear.drinkWater(waterWeight)
-
-        then:
-        result == 47.5
-    }
-
 
 }
