@@ -8,10 +8,11 @@ import pl.sdacademy.animals.time.BearClock;
 
 public abstract class Bear implements Animal {
 
-    private int weight;
+    private double weight;
     private boolean isAlive;
     private DateTime lastMealTime;
     private BearClock clock;
+    private double waterWeight;
 
     public Bear(int weight) {
         this.weight = weight;
@@ -31,13 +32,25 @@ public abstract class Bear implements Animal {
 
     }
 
-    public void eat() {
+    public void eat( int mealWeight ) {
         this.lastMealTime = clock.getCurrentTime();
+        this.weight += mealWeight;
     }
 
     @Override
-    public int getWeight() {
+    public double getWeight() {
         return weight;
+    }
+
+    public void drink(double waterWeight) {
+
+        this.waterWeight = waterWeight;
+        this.weight += waterWeight;
+    }
+
+    public void poop()
+    {
+        this.weight = weight *0.95;
     }
 
 }
