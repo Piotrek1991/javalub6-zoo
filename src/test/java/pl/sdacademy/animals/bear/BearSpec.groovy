@@ -30,7 +30,27 @@ class BearSpec extends Specification {
     }
 
     def "Bear should not be alive if it has eaten within more than 10 days"() {
+        given:
+        int weight = 3
+        Bear bear = new BlackBear(weight)
+        bear.eat()
+
+        when:
+        boolean result = !bear.isAlive()
+
+        then:
+        result
+    }
+
+    def "After eated a meal with a given weight, its weight increase by the same amount"()
+    {
+        given:
+        int weight = 3
+        Bear bear = new BlackBear(weight)
+
+
 
     }
+
 
 }

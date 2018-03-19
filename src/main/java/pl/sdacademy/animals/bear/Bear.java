@@ -19,6 +19,7 @@ public abstract class Bear implements Animal {
     }
 
     public void eat() {
+        isAlive = false;
     }
 
     @Override
